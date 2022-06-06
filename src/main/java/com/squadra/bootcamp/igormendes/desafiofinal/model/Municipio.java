@@ -1,13 +1,14 @@
 package com.squadra.bootcamp.igormendes.desafiofinal.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.io.Serializable;
 
 import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "tb_municipio")
-public class Municipio {
+public class Municipio implements Serializable{
     @Id
     @Column(name = "CODIGO_MUNICIPIO")
     @GeneratedValue(generator = "municipio_sequence" ,strategy = GenerationType.SEQUENCE)
@@ -21,7 +22,7 @@ public class Municipio {
     @Column(name = "STATUS")
     private int status;
     public Municipio(){
-        
+
     }
 
 

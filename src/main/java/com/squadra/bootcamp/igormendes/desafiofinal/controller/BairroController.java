@@ -23,7 +23,7 @@ public class BairroController {
 
     @GetMapping(params = "codigoBairro")
 
-    public ResponseEntity<BairroDTO> findById(@RequestParam Long codigoBairro) {
+    public ResponseEntity<BairroDTO> findById(@RequestParam (defaultValue = "") Long codigoBairro) {
         BairroDTO listBairroDTO = bairroService.findById(codigoBairro);
         if (listBairroDTO.getCodigoBairro() == null) {
             return ResponseEntity.notFound().build();
@@ -32,7 +32,7 @@ public class BairroController {
     }
     @GetMapping(params = "codigoMunicipio")
 
-    public ResponseEntity<BairroDTO> findByCodigoMunicipio(@RequestParam Long codigoMunicipio) {
+    public ResponseEntity<BairroDTO> findByCodigoMunicipio(@RequestParam (defaultValue = "") Long codigoMunicipio) {
         BairroDTO listBairroDTO = bairroService.findById(codigoMunicipio);
         if (listBairroDTO.getCodigoMunicipio() == null) {
             return ResponseEntity.notFound().build();

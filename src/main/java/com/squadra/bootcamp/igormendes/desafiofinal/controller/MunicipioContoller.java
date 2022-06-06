@@ -23,7 +23,7 @@ public class MunicipioContoller {
     }
 
     @GetMapping(params = "codigoMunicipio")
-    public ResponseEntity<MunicipioDTO> findById(@RequestParam Long codigoMunicipio) {
+    public ResponseEntity<MunicipioDTO> findById(@RequestParam (defaultValue = "") Long codigoMunicipio) {
         MunicipioDTO listMunicipiosDTO = municipioService.findByid(codigoMunicipio);
         if (listMunicipiosDTO.getCodigoMunicipio() == null) {
             return ResponseEntity.notFound().build();
@@ -31,7 +31,7 @@ public class MunicipioContoller {
         return ResponseEntity.ok(listMunicipiosDTO);
     }
     @GetMapping(params = "codigoUf")
-    public ResponseEntity<MunicipioDTO> findByUf(@RequestParam Long codigoUf) {
+    public ResponseEntity<MunicipioDTO> findByUf(@RequestParam (defaultValue = "") Long codigoUf) {
         MunicipioDTO listMunicipiosDTO = municipioService.findByid(codigoUf);
         if (listMunicipiosDTO.getCodigoUF() == null) {
             return ResponseEntity.notFound().build();

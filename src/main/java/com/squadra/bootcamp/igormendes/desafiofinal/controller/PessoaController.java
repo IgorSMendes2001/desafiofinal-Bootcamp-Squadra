@@ -33,7 +33,7 @@ public class PessoaController {
     }
 
     @GetMapping( "/pessoa")
-    public ResponseEntity<PessoaDTO> findById(@RequestParam Long codigoPessoa) {
+    public ResponseEntity<PessoaDTO> findById(@RequestParam (defaultValue = "") Long codigoPessoa) {
         PessoaDTO listPessoaDTO = pessoaService.findByid(codigoPessoa);
         if (listPessoaDTO.getCodigoPessoa() == null) {
             return ResponseEntity.notFound().build();

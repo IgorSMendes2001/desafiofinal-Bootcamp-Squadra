@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class EnderecoDTO {
     private Long codigoEndereco;
-    private Pessoa codigoPessoa;
-    private Bairro codigoBairro;
+    private Long codigoPessoa;
+    private Long codigoBairro;
     private String nomeRua;
     private String numero;
     private String complemento;
