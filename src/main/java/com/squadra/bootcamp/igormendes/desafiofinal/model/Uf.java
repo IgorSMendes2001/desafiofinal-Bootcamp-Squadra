@@ -8,10 +8,15 @@ import javax.persistence.*;
 @Table(name = "tb_uf")
 public class Uf {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "CODIGO_UF")
+    @GeneratedValue(generator = "uf_sequence", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "uf_sequence",sequenceName = "uf_seq")
     private Long codigoUF;
+    @Column(name = "SIGLA")
     private String sigla;
+    @Column(name = "NOME")
     private String nome;
+    @Column(name = "STATUS")
     private int status;
 
 }

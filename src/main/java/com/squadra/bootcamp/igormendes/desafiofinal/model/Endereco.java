@@ -8,15 +8,22 @@ import javax.persistence.*;
 @Table(name="tb_endereco")
 public class Endereco{
     @Id
+    @Column(name = "CODIGO_ENDERECO")
     @GeneratedValue(generator = "endereco_sequence" ,strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "endereco_sequence")
+    @SequenceGenerator(name = "endereco_sequence",sequenceName="end_seq")
     private Long codigoEndereco;
-    @Column(name = "codigo_pessoa")
+    @ManyToOne
+    @JoinColumn(name = "CODIGO_PESSOA")
     private Pessoa codigoPessoa;
-    @Column(name="codigo_bairro")
+    @ManyToOne
+    @JoinColumn(name="CODIGO_BAIRRO")
     private Bairro codigoBairro;
+    @Column(name = "NOME_RUA")
     private String nomeRua;
+    @Column(name = "NUMERO")
     private String numero;
+    @Column(name = "COMPLEMENTO")
     private String complemento;
+    @Column(name = "CEP")
     private String cep;
 }

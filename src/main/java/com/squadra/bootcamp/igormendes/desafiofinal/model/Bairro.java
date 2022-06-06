@@ -8,11 +8,16 @@ import javax.persistence.*;
 @Table(name="tb_bairro")
 public class Bairro {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "CODIGO_BAIRRO")
+    @GeneratedValue(generator= "bairro_sequence",strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name="bairro_sequence",sequenceName = "bair_seq" )
     private Long codigoBairro;
-    @Column(name = "codigo_municipio")
+    @ManyToOne
+    @JoinColumn(name = "CODIGO_MUNICIPIO")
     private Municipio codigoMunicipio;
+    @Column(name = "NOME")
     private String nome;
+    @Column(name = "STATUS")
     private int status;
 
 

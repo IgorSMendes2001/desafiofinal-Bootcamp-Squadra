@@ -5,14 +5,7 @@ import com.squadra.bootcamp.igormendes.desafiofinal.service.BairroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,8 +21,9 @@ public class BairroController {
         return listBairroDTO;
     }
 
-    @GetMapping(path = "/{codigoBairro}")
-    public ResponseEntity<BairroDTO> findById(@PathVariable Long codigoBairro) {
+    @GetMapping("/bairro")
+
+    public ResponseEntity<BairroDTO> findById(@RequestParam Long codigoBairro) {
         BairroDTO listBairroDTO = bairroService.findById(codigoBairro);
         if (listBairroDTO.getCodigoBairro() == null) {
             return ResponseEntity.notFound().build();

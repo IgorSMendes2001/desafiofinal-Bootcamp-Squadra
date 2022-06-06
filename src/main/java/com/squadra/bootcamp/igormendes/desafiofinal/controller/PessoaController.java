@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.squadra.bootcamp.igormendes.desafiofinal.model.EnderecoDTO;
 import com.squadra.bootcamp.igormendes.desafiofinal.model.PessoaDTO;
+import com.squadra.bootcamp.igormendes.desafiofinal.service.EnderecoService;
 import com.squadra.bootcamp.igormendes.desafiofinal.service.PessoaService;
 
 @RestController
@@ -22,6 +25,8 @@ import com.squadra.bootcamp.igormendes.desafiofinal.service.PessoaService;
 public class PessoaController {
     @Autowired
     private PessoaService pessoaService;
+	@Autowired
+	private EnderecoService enderecoService;
 
     @GetMapping
     public List<PessoaDTO> findAll() {
@@ -29,8 +34,8 @@ public class PessoaController {
         return listPessoaDTO;
     }
 
-    @GetMapping(path = "/{codigoPessoa}")
-    public ResponseEntity<PessoaDTO> findById(@PathVariable Long codigoPessoa) {
+    @GetMapping( "/pessoa")
+    public ResponseEntity<PessoaDTO> findById(@RequestParam Long codigoPessoa) {
         PessoaDTO listPessoaDTO = pessoaService.findByid(codigoPessoa);
         if (listPessoaDTO.getCodigoPessoa() == null) {
             return ResponseEntity.notFound().build();
@@ -71,4 +76,9 @@ public class PessoaController {
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(bairroDTO);		
 	}
+//	@GetMapping
+//    public List<EnderecoDTO> findByEndereco() {
+//        List<EnderecoDTO> listEnderecoDTO = enderecoService.findAll();
+//        return listEnderecoDTO;
+//    }
 }

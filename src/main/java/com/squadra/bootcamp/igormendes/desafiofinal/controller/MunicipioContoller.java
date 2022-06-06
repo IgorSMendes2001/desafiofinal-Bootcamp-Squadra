@@ -5,14 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.squadra.bootcamp.igormendes.desafiofinal.model.MunicipioDTO;
 import com.squadra.bootcamp.igormendes.desafiofinal.service.MunicipioService;
@@ -29,13 +22,13 @@ public class MunicipioContoller {
         return listMunicipiosDTO;
     }
 
-    @GetMapping(path = "/{codigoMunicipio}")
-    public ResponseEntity<MunicipioDTO> findById(@PathVariable Long codigoMunicipio) {
-        MunicipioDTO listBairroDTO = municipioService.findByid(codigoMunicipio);
-        if (listBairroDTO.getCodigoMunicipio() == null) {
+    @GetMapping("/municipio")
+    public ResponseEntity<MunicipioDTO> findById(@RequestParam Long codigoMunicipio) {
+        MunicipioDTO listMunicipiosDTO = municipioService.findByid(codigoMunicipio);
+        if (listMunicipiosDTO.getCodigoMunicipio() == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(listBairroDTO);
+        return ResponseEntity.ok(listMunicipiosDTO);
     }
     @DeleteMapping(path = "/{codigoMunicipio}")
 	public ResponseEntity<String> deleteById(@PathVariable Long codigoMunicipio) {
@@ -50,25 +43,25 @@ public class MunicipioContoller {
 
    
     @PostMapping
-	public ResponseEntity<MunicipioDTO> save(@RequestBody MunicipioDTO bairroDTO) {
+	public ResponseEntity<MunicipioDTO> save(@RequestBody MunicipioDTO municipioDTO) {
 
-		bairroDTO = municipioService.save(bairroDTO);	
-		if (bairroDTO.getCodigoMunicipio() == null) {
+		municipioDTO = municipioService.save(municipioDTO);
+		if (municipioDTO.getCodigoMunicipio() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(bairroDTO);		
+		return ResponseEntity.status(HttpStatus.CREATED).body(municipioDTO);
 	}
 
    
 
     @PutMapping
-	public ResponseEntity<MunicipioDTO> update(@RequestBody MunicipioDTO bairroDTO) {
+	public ResponseEntity<MunicipioDTO> update(@RequestBody MunicipioDTO municipioDTO) {
 
-		bairroDTO = municipioService.update(bairroDTO);
+		municipioDTO = municipioService.update(municipioDTO);
 
-		if (bairroDTO.getCodigoMunicipio() == null) {
+		if (municipioDTO.getCodigoMunicipio() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(bairroDTO);		
+		return ResponseEntity.status(HttpStatus.CREATED).body(municipioDTO);
 	}
 }
