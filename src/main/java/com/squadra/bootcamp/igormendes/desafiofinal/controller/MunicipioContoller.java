@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.squadra.bootcamp.igormendes.desafiofinal.model.MunicipioDTO;
 import com.squadra.bootcamp.igormendes.desafiofinal.service.MunicipioService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping({"/municipio"})
 public class MunicipioContoller {
@@ -22,46 +24,45 @@ public class MunicipioContoller {
         return listMunicipiosDTO;
     }
 
-    @GetMapping("/municipio")
-    public ResponseEntity<MunicipioDTO> findById(@RequestParam Long codigoMunicipio) {
+    @GetMapping(params = "codigoMunicipio")
+    public ResponseEntity<MunicipioDTO> findById(@RequestParam  Long codigoMunicipio) {
         MunicipioDTO listMunicipiosDTO = municipioService.findByid(codigoMunicipio);
         if (listMunicipiosDTO.getCodigoMunicipio() == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(listMunicipiosDTO);
     }
-    @DeleteMapping(path = "/{codigoMunicipio}")
-	public ResponseEntity<String> deleteById(@PathVariable Long codigoMunicipio) {
+    @GetMapping(params = "codigoUf")
+    public ResponseEntity<MunicipioDTO> findByUf(@RequestParam  Long codigoUf) {
+        MunicipioDTO listMunicipiosDTO = municipioService.findByid(codigoUf);
+        if (listMunicipiosDTO.getCodigoUF() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(listMunicipiosDTO);
+    }
 
-		boolean sucesso = municipioService.deleteByid(codigoMunicipio);
-		if (sucesso == true) {
-			return ResponseEntity.ok("Registro Deletado");
-		}
-		return ResponseEntity.badRequest().body("Registro contêm vínculos, não pode ser removido");
 
-	}
 
-   
     @PostMapping
-	public ResponseEntity<MunicipioDTO> save(@RequestBody MunicipioDTO municipioDTO) {
+	public ResponseEntity<MunicipioDTO> save(@RequestBody @Valid MunicipioDTO municipioDTO) {
 
 		municipioDTO = municipioService.save(municipioDTO);
 		if (municipioDTO.getCodigoMunicipio() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(municipioDTO);
+		return ResponseEntity.status(HttpStatus.OK).body(municipioDTO);
 	}
 
    
 
     @PutMapping
-	public ResponseEntity<MunicipioDTO> update(@RequestBody MunicipioDTO municipioDTO) {
+	public ResponseEntity<MunicipioDTO> update(@RequestBody @Valid MunicipioDTO municipioDTO) {
 
 		municipioDTO = municipioService.update(municipioDTO);
 
 		if (municipioDTO.getCodigoMunicipio() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(municipioDTO);
+		return ResponseEntity.status(HttpStatus.OK).body(municipioDTO);
 	}
 }

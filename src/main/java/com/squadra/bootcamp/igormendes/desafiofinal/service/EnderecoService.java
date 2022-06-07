@@ -22,38 +22,6 @@ public class EnderecoService {
     EnderecoService(EnderecoRepository enderecoService){
         this.enderecoRepository =enderecoService;
     }
-    public List<EnderecoDTO> findAll() {
-
-        List<Endereco> listEndereco = enderecoRepository.findAll();
-
-        List<EnderecoDTO> listDto = listEndereco.stream()
-                .map(endereco -> modelMapper.map(endereco, EnderecoDTO.class)).collect(Collectors.toList());
-
-        return listDto;
-    }
-    public EnderecoDTO findByid(Long id) {
-
-        boolean existe = enderecoRepository.existsById(id);
-        if (existe == true) {
-            Endereco endereco = enderecoRepository.getReferenceById(id);
-            EnderecoDTO enderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
-            return enderecoDTO;
-        }
-        return new EnderecoDTO();
-
-    }
-
-
-    public boolean deleteByid(Long id) {
-
-        boolean existe = enderecoRepository.existsById(id);
-        if (existe == true) {
-            enderecoRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
 
     public EnderecoDTO save(EnderecoDTO enderecoDTO) {
 
@@ -78,5 +46,14 @@ public class EnderecoService {
         } catch (Exception e) {
             return new EnderecoDTO();
         }
+    }
+
+    public List<EnderecoDTO> findByEndereco() {
+        List<Endereco> listEndereco = enderecoRepository.findAll();
+
+        List<EnderecoDTO> listDto = listEndereco.stream()
+                .map(endereco -> modelMapper.map(endereco, EnderecoDTO.class)).collect(Collectors.toList());
+
+        return listDto;
     }
 }

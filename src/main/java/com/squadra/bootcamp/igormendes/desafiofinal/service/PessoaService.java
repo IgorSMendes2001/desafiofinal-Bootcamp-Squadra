@@ -44,17 +44,6 @@ public class PessoaService {
     }
 
 
-    public boolean deleteByid(Long id) {
-
-        boolean existe = pessoaRepository.existsById(id);
-        if (existe == true) {
-            pessoaRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
-
     public PessoaDTO save(PessoaDTO pessoaDTO) {
 
         try {

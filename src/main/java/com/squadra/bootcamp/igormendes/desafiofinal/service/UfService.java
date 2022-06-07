@@ -43,18 +43,6 @@ public class UfService {
 
     }
 
-
-    public boolean deleteByid(Long id) {
-
-        boolean existe = ufRepository.existsById(id);
-        if (existe == true) {
-            ufRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
-
     public UfDTO save(UfDTO ufDTO) {
 
         try {
@@ -73,10 +61,25 @@ public class UfService {
 
         try {
             Uf uf = modelMapper.map(pessoaDTO, Uf.class);
-            Long id = ufRepository.save(uf).getCodigoUF();
             return pessoaDTO;
         } catch (Exception e) {
             return new UfDTO();
         }
+    }
+
+    public UfDTO findBySigla(String sigla) {
+            Uf uf = ufRepository.findBySigla(sigla);
+            UfDTO ufDTO = modelMapper.map(uf, UfDTO.class);
+            return ufDTO;
+    }
+    public UfDTO findByNome(String nome) {
+        Uf uf = ufRepository.findByNome(nome);
+        UfDTO ufDTO = modelMapper.map(uf, UfDTO.class);
+        return ufDTO;
+    }
+    public UfDTO findByStatus(Long status) {
+        Uf uf = ufRepository.getReferenceById(status);
+        UfDTO ufDTO = modelMapper.map(uf, UfDTO.class);
+        return ufDTO;
     }
 }

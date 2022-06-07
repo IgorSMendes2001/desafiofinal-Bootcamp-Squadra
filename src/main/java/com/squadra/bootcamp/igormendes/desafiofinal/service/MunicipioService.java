@@ -41,19 +41,6 @@ public class MunicipioService {
         return new MunicipioDTO();
 
     }
-
-
-    public boolean deleteByid(Long id) {
-
-        boolean existe = municipioRepository.existsById(id);
-        if (existe == true) {
-            municipioRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
-
     public MunicipioDTO save(MunicipioDTO municipioDTO) {
 
         try {

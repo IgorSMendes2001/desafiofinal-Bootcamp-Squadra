@@ -2,12 +2,13 @@ package com.squadra.bootcamp.igormendes.desafiofinal.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,46 +31,58 @@ public class UfController {
         return listaUfDTO;
     }
 
-    @GetMapping(path = "/{codigoUf}")
-    public ResponseEntity<UfDTO> findById(@RequestParam Long codigoUf) {
+    @GetMapping(params = "codigoUf")
+    public ResponseEntity<UfDTO> findByCodigoUf(@RequestParam (required = false) Long codigoUf) {
         UfDTO listaUfDTO = ufService.findByid(codigoUf);
         if (listaUfDTO.getCodigoUF() == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(listaUfDTO);
     }
-    @DeleteMapping(path = "/{codigoUf}")
-	public ResponseEntity<String> deleteById(@PathVariable Long codigoUf) {
-
-		boolean sucesso = ufService.deleteByid(codigoUf);
-		if (sucesso == true) {
-			return ResponseEntity.ok("Registro Deletado");
-		}
-		return ResponseEntity.badRequest().body("Registro contêm vínculos, não pode ser removido");
-
-	}
-
-   
+    @GetMapping(params = "sigla")
+    public ResponseEntity<UfDTO> findBySigla(@RequestParam (required = false) String sigla) {
+        UfDTO listaUfDTO = ufService.findBySigla(sigla);
+        if (listaUfDTO.getSigla() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(listaUfDTO);
+    }
+    @GetMapping(params = "nome")
+    public ResponseEntity<UfDTO> findByNome(@RequestParam (required = false) String nome) {
+        UfDTO listaUfDTO = ufService.findByNome(nome);
+        if (listaUfDTO.getNome() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(listaUfDTO);
+    }
+    @GetMapping(params = "status")
+    public ResponseEntity<UfDTO> findByStatus(@RequestParam (required = false) Long status) {
+        UfDTO listaUfDTO = ufService.findByStatus(status);
+        if (listaUfDTO.getStatus() !=1||listaUfDTO.getStatus()!=2) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(listaUfDTO);
+    }
     @PostMapping
-	public ResponseEntity<UfDTO> save(@RequestBody UfDTO ufDTO) {
+	public ResponseEntity<UfDTO> save( @RequestBody @Valid UfDTO ufDTO) {
 
 		ufDTO = ufService.save(ufDTO);	
 		if (ufDTO.getCodigoUF() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(ufDTO);		
+		return ResponseEntity.status(HttpStatus.OK).body(ufDTO);		
 	}
 
    
 
     @PutMapping
-	public ResponseEntity<UfDTO> update(@RequestBody UfDTO ufDTO) {
+	public ResponseEntity<UfDTO> update(@RequestBody @Valid UfDTO ufDTO) {
 
 		ufDTO = ufService.update(ufDTO);
 
 		if (ufDTO.getCodigoUF() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(ufDTO);		
+		return ResponseEntity.status(HttpStatus.OK).body(ufDTO);		
 	}
 }

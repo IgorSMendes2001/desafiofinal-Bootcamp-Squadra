@@ -43,16 +43,6 @@ public class BairroService {
     }
 
 
-    public boolean deleteByid(Long id) {
-
-        boolean existe = bairroRepository.existsById(id);
-        if (existe == true) {
-            bairroRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
 
     public BairroDTO save(BairroDTO bairroDTO) {
 

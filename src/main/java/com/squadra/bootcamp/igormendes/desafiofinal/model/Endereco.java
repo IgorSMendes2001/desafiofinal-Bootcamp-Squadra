@@ -3,6 +3,8 @@ package com.squadra.bootcamp.igormendes.desafiofinal.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 @Data
 @Entity
 @Table(name="tb_endereco")
@@ -16,7 +18,7 @@ public class Endereco{
     @JoinColumn(name = "CODIGO_PESSOA")
     private Pessoa codigoPessoa;
     @ManyToOne
-    @JoinColumn(name="CODIGO_BAIRRO")
+    // @JoinColumn(name="CODIGO_BAIRRO")
     private Bairro codigoBairro;
     @Column(name = "NOME_RUA")
     private String nomeRua;
