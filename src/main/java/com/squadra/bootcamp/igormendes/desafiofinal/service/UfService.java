@@ -3,6 +3,7 @@ package com.squadra.bootcamp.igormendes.desafiofinal.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.squadra.bootcamp.igormendes.desafiofinal.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,8 @@ public class UfService {
 
         boolean existe = ufRepository.existsById(id);
         if (existe == true) {
-            Uf uf = ufRepository.getReferenceById(id);
+            Uf uf = ufRepository.findById(id).orElseThrow(
+                    ()->new ResourceNotFoundException("Recurso não encontrado"+id));
             UfDTO ufDTO = modelMapper.map(uf, UfDTO.class);
             return ufDTO;
         }
@@ -60,7 +62,7 @@ public class UfService {
     public UfDTO update(UfDTO pessoaDTO) {
 
         try {
-            Uf uf = modelMapper.map(pessoaDTO, Uf.class);
+             modelMapper.map(pessoaDTO, Uf.class);
             return pessoaDTO;
         } catch (Exception e) {
             return new UfDTO();
@@ -77,9 +79,10 @@ public class UfService {
         UfDTO ufDTO = modelMapper.map(uf, UfDTO.class);
         return ufDTO;
     }
-    public UfDTO findByStatus(Long status) {
-        Uf uf = ufRepository.getReferenceById(status);
-        UfDTO ufDTO = modelMapper.map(uf, UfDTO.class);
-        return ufDTO;
+    public List<UfDTO> findByStatus(Integer status) {
+        List<Uf> listUf = ufRepository.findByStatus(status);
+        List<UfDTO> listUfDTO = listUf.stream()
+                .map(uf -> modelMapper.map(uf, UfDTO.class)).collect(Collectors.toList());
+        return listUfDTO;
     }
 }

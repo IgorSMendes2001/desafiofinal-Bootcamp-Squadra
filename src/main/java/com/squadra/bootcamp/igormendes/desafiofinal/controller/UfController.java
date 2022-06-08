@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,57 +31,38 @@ public class UfController {
     }
 
     @GetMapping(params = "codigoUf")
-    public ResponseEntity<UfDTO> findByCodigoUf(@RequestParam (required = false) Long codigoUf) {
-        UfDTO listaUfDTO = ufService.findByid(codigoUf);
-        if (listaUfDTO.getCodigoUF() == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(listaUfDTO);
+    public ResponseEntity<UfDTO> findByCodigoUf(@RequestParam Long codigoUf) {
+        UfDTO ufDTO = ufService.findByid(codigoUf);
+        return ResponseEntity.ok(ufDTO);
     }
     @GetMapping(params = "sigla")
-    public ResponseEntity<UfDTO> findBySigla(@RequestParam (required = false) String sigla) {
-        UfDTO listaUfDTO = ufService.findBySigla(sigla);
-        if (listaUfDTO.getSigla() == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(listaUfDTO);
+    public ResponseEntity<UfDTO> findBySigla(@RequestParam  String sigla) {
+            UfDTO ufDTO = ufService.findBySigla(sigla);
+            return ResponseEntity.ok(ufDTO);
     }
     @GetMapping(params = "nome")
-    public ResponseEntity<UfDTO> findByNome(@RequestParam (required = false) String nome) {
-        UfDTO listaUfDTO = ufService.findByNome(nome);
-        if (listaUfDTO.getNome() == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<UfDTO> findByNome(@RequestParam  String nome) {
+            UfDTO ufDTO = ufService.findByNome(nome);
+            return ResponseEntity.ok(ufDTO);
         }
-        return ResponseEntity.ok(listaUfDTO);
-    }
+       
     @GetMapping(params = "status")
-    public ResponseEntity<UfDTO> findByStatus(@RequestParam (required = false) Long status) {
-        UfDTO listaUfDTO = ufService.findByStatus(status);
-        if (listaUfDTO.getStatus() !=1||listaUfDTO.getStatus()!=2) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(listaUfDTO);
+    public  List<UfDTO> findByStatus(@RequestParam  Integer status) {
+        List<UfDTO> listaUfDTO = ufService.findByStatus(status);
+        return listaUfDTO;
     }
     @PostMapping
 	public ResponseEntity<UfDTO> save( @RequestBody @Valid UfDTO ufDTO) {
-
 		ufDTO = ufService.save(ufDTO);	
-		if (ufDTO.getCodigoUF() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(ufDTO);		
+		return ResponseEntity.status(HttpStatus.OK).body(ufDTO);
 	}
 
    
 
     @PutMapping
 	public ResponseEntity<UfDTO> update(@RequestBody @Valid UfDTO ufDTO) {
-
-		ufDTO = ufService.update(ufDTO);
-
-		if (ufDTO.getCodigoUF() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(ufDTO);		
+            ufDTO = ufService.update(ufDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(ufDTO);
+				
 	}
 }

@@ -18,8 +18,6 @@ import com.squadra.bootcamp.igormendes.desafiofinal.model.PessoaDTO;
 import com.squadra.bootcamp.igormendes.desafiofinal.service.EnderecoService;
 import com.squadra.bootcamp.igormendes.desafiofinal.service.PessoaService;
 
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping({"/pessoa"})
 public class PessoaController {
@@ -34,38 +32,38 @@ public class PessoaController {
         return listPessoaDTO;
     }
 
-    @GetMapping(params = "/codigoPessoa")
-    public ResponseEntity<PessoaDTO> findById(@RequestParam  Long codigoPessoa) {
+    @GetMapping( "/pessoa")
+    public ResponseEntity<PessoaDTO> findById(@RequestParam (defaultValue = "") Long codigoPessoa) {
         PessoaDTO listPessoaDTO = pessoaService.findByid(codigoPessoa);
         if (listPessoaDTO.getCodigoPessoa() == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(listPessoaDTO);
     }
-   
-   
+
+
     @PostMapping
-	public ResponseEntity<PessoaDTO> save(@RequestBody @Valid PessoaDTO pessoaDTO) {
+    public ResponseEntity<PessoaDTO> save(@RequestBody PessoaDTO pessoaDTO) {
 
-		pessoaDTO = pessoaService.save(pessoaDTO);	
-		if (pessoaDTO.getCodigoPessoa() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(pessoaDTO);		
-	}
+        pessoaDTO = pessoaService.save(pessoaDTO);
+        if (pessoaDTO.getCodigoPessoa() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaDTO);
+    }
 
-   
+
 
     @PutMapping
-	public ResponseEntity<PessoaDTO> update(@RequestBody @Valid PessoaDTO bairroDTO) {
+    public ResponseEntity<PessoaDTO> update(@RequestBody PessoaDTO bairroDTO) {
 
-		bairroDTO = pessoaService.update(bairroDTO);
+        bairroDTO = pessoaService.update(bairroDTO);
 
-		if (bairroDTO.getCodigoPessoa() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(bairroDTO);		
-	}
+        if (bairroDTO.getCodigoPessoa() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(bairroDTO);
+    }
  	@GetMapping(params = "enderecos")
     public List<EnderecoDTO> findByEndereco() {
         List<EnderecoDTO> listEnderecoDTO = enderecoService.findByEndereco();

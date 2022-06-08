@@ -30,17 +30,6 @@ public class MunicipioService {
 
         return listDto;
     }
-    public MunicipioDTO findByid(Long id) {
-
-        boolean existe = municipioRepository.existsById(id);
-        if (existe == true) {
-            Municipio municipio = municipioRepository.getReferenceById(id);
-            MunicipioDTO municipioDTO = modelMapper.map(municipio, MunicipioDTO.class);
-            return municipioDTO;
-        }
-        return new MunicipioDTO();
-
-    }
     public MunicipioDTO save(MunicipioDTO municipioDTO) {
 
         try {
@@ -59,10 +48,29 @@ public class MunicipioService {
 
         try {
             Municipio municipio = modelMapper.map(municipioDTO, Municipio.class);
-            Long id = municipioRepository.save(municipio).getCodigoMunicipio();
+              municipioRepository.save(municipio).getCodigoMunicipio();
             return municipioDTO;
         } catch (Exception e) {
             return new MunicipioDTO();
         }
+    }
+
+    public MunicipioDTO findByCodigoUf(Long codigoUf) {
+        boolean existe = municipioRepository.existsById(codigoUf);
+        if (existe == true) {
+            Municipio municipio = municipioRepository.getReferenceById(codigoUf);
+            MunicipioDTO municipioDTO = modelMapper.map(municipio, MunicipioDTO.class);
+            return municipioDTO;
+        }
+        return new MunicipioDTO();
+    }
+    public MunicipioDTO findById(Long codigoMunicipio) {
+        boolean existe = municipioRepository.existsById(codigoMunicipio);
+        if (existe == true) {
+            Municipio municipio = municipioRepository.getReferenceById(codigoMunicipio);
+            MunicipioDTO municipioDTO = modelMapper.map(municipio, MunicipioDTO.class);
+            return municipioDTO;
+        }
+        return new MunicipioDTO();
     }
 }

@@ -10,14 +10,14 @@ public class EnderecoDTO {
     private Long codigoEndereco;
     private Long codigoPessoa;
     private Long codigoBairro;
-    @NotNull(message = "Nome da rua é obrigatório")
+    @NotNull(message = "Nome da rua não pode ser nulo!")
     @Size(min=1,max = 50)
     private String nomeRua;
-    @NotNull(message = "Número é obrigatório")
+    @NotNull(message = "Número não pode ser nulo!")
     private String numero;
     @Size(min=1,max = 50)
     private String complemento;
-    @NotNull(message = "CEP é obrigatório")
+    @NotNull(message = "CEP não pode ser nulo!")
     @Size(min=8,max = 8)
     private String cep;
 }

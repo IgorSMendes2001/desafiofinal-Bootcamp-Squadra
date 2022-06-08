@@ -62,7 +62,7 @@ public class BairroService {
 
         try {
             Bairro bairro = modelMapper.map(pedrasDto, Bairro.class);
-            Long id = bairroRepository.save(bairro).getCodigoBairro();
+             bairroRepository.save(bairro).getCodigoBairro();
             return pedrasDto;
         } catch (Exception e) {
             return new BairroDTO();

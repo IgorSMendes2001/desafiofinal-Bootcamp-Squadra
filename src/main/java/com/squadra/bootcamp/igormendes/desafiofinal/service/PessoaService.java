@@ -62,7 +62,7 @@ public class PessoaService {
 
         try {
             Pessoa pessoa = modelMapper.map(pessoaDTO, Pessoa.class);
-            Long id = pessoaRepository.save(pessoa).getCodigoPessoa();
+            pessoaRepository.save(pessoa).getCodigoPessoa();
             return pessoaDTO;
         } catch (Exception e) {
             return new PessoaDTO();

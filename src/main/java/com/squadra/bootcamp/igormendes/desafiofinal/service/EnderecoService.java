@@ -41,7 +41,7 @@ public class EnderecoService {
 
         try {
             Endereco endereco = modelMapper.map(enderecoDTO, Endereco.class);
-            Long id = enderecoRepository.save(endereco).getCodigoEndereco();
+            enderecoRepository.save(endereco).getCodigoEndereco();
             return enderecoDTO;
         } catch (Exception e) {
             return new EnderecoDTO();

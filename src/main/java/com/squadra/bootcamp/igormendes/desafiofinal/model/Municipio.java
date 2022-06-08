@@ -2,10 +2,9 @@ package com.squadra.bootcamp.igormendes.desafiofinal.model;
 
 import lombok.Data;
 
-import java.io.Serializable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+
 
 @Data
 @Entity
@@ -22,7 +21,7 @@ public class Municipio{
     @Column(name = "NOME",unique = true)
     private String nome;
     @Column(name = "STATUS")
-    private int status;
+    private Integer status;
     public Municipio(){
 
     }
